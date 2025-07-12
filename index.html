@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>음성 메모 앱</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- 상단: 음성인식 텍스트 실시간 표시 -->
+        <div class="speech-display">
+            <div class="speech-text" id="speechText">음성을 인식하면 여기에 표시됩니다...</div>
+        </div>
+        
+        <!-- 중단: 저장된 메모 목록 -->
+        <div class="memo-list">
+            <h3>저장된 메모</h3>
+            <div class="memo-items" id="memoItems">
+                <!-- 메모 목록이 여기에 동적으로 추가됩니다 -->
+            </div>
+        </div>
+        
+        <!-- 하단: 시작 버튼 -->
+        <div class="controls">
+            <button class="record-button" id="recordButton">
+                <img src="play-icon.png" alt="재생" class="play-icon">
+            </button>
+        </div>
+    </div>
+
+    <!-- 메모 상세 보기 모달 -->
+    <div class="modal" id="memoModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="memoTitle">메모 제목</h3>
+                <button class="close-button" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="memo-content" id="memoContent"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 

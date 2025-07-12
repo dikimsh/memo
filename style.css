@@ -1,0 +1,308 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: #2c2c2c;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    height: 80vh;
+    max-width: 400px;
+    margin: 10vh auto;
+    background: #2c2c2c;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    color: white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* 상단 음성인식 텍스트 영역 */
+.speech-display {
+    height: 160px;
+    padding: 10px 20px 5px 20px;
+    background: transparent;
+    border-bottom: none;
+    flex-shrink: 0;
+}
+
+.speech-text {
+    font-size: 16px;
+    line-height: 1.5;
+    color: white;
+    height: 120px;
+    padding: 15px;
+    background: #4a4a4a;
+    border-radius: 10px;
+    border: none;
+    word-wrap: break-word;
+    overflow-y: auto;
+    margin-bottom: 0;
+}
+
+.speech-text.recording {
+    background: #4a5a4a;
+}
+
+/* 중단 메모 목록 영역 */
+.memo-list {
+    flex: 1;
+    padding: 5px 20px;
+    overflow-y: auto;
+    min-height: 0;
+}
+
+.memo-list h3 {
+    margin-bottom: 8px;
+    margin-top: 0;
+    color: white;
+    font-size: 18px;
+}
+
+.memo-items {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.memo-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background: #3a3a3a;
+    border-radius: 8px;
+    border: 1px solid #555;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.memo-item:hover {
+    background: #4a4a4a;
+    transform: translateY(-1px);
+}
+
+.memo-info {
+    flex: 1;
+}
+
+.memo-title {
+    font-weight: bold;
+    color: white;
+    margin-bottom: 5px;
+}
+
+.memo-date {
+    font-size: 12px;
+    color: #ccc;
+}
+
+.memo-preview {
+    font-size: 14px;
+    color: #ccc;
+    margin-top: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 200px;
+}
+
+.delete-button {
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background 0.2s ease;
+}
+
+.delete-button:hover {
+    background: #c82333;
+}
+
+/* 하단 컨트롤 영역 */
+.controls {
+    height: 140px;
+    padding: 20px;
+    text-align: center;
+    background: #3a3a3a;
+    border-top: 1px solid #555;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.record-button {
+    width: auto;
+    height: auto;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: none;
+    padding: 10px;
+}
+
+.record-button:hover {
+    transform: scale(1.05);
+    opacity: 0.8;
+}
+
+.record-button:active {
+    transform: scale(0.95);
+}
+
+.record-button.recording {
+    background: rgba(220, 53, 69, 0.2);
+    border-radius: 10px;
+    animation: pulse 1.5s infinite;
+}
+
+.play-icon {
+    width: 90px;
+    height: 90px;
+}
+
+@keyframes pulse {
+    0% {
+        background: rgba(220, 53, 69, 0.2);
+    }
+    50% {
+        background: rgba(220, 53, 69, 0.4);
+    }
+    100% {
+        background: rgba(220, 53, 69, 0.2);
+    }
+}
+
+/* 모달 스타일 */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+    background: white;
+    margin: 10% auto;
+    padding: 0;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 70vh;
+    overflow: hidden;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #e9ecef;
+    background: #f8f9fa;
+}
+
+.modal-header h3 {
+    margin: 0;
+    color: #343a40;
+}
+
+.close-button {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #6c757d;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.close-button:hover {
+    color: #495057;
+}
+
+.modal-body {
+    padding: 20px;
+    max-height: 50vh;
+    overflow-y: auto;
+}
+
+.memo-content {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #495057;
+    white-space: pre-wrap;
+}
+
+/* 빈 상태 메시지 */
+.empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: #ccc;
+}
+
+.empty-state p {
+    margin-bottom: 10px;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 480px) {
+    .app-container {
+        max-width: 100%;
+        height: 100vh;
+    }
+    
+    .app-container {
+        height: 85vh;
+        margin: 7.5vh auto;
+    }
+    
+    .speech-display {
+        height: 140px;
+        padding: 8px 15px 5px 15px;
+    }
+    
+    .speech-text {
+        height: 100px;
+    }
+    
+    .memo-list {
+        padding: 5px 15px;
+    }
+    
+    .controls {
+        height: 120px;
+        padding: 15px;
+    }
+    
+    .record-button {
+        width: auto;
+        height: auto;
+    }
+    
+    .play-icon {
+        width: 60px;
+        height: 60px;
+    }
+} 
